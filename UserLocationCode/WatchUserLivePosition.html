@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Get the user gelocation coordinates </title>
+</head>
+<style>
+	#demo{
+		color:red;
+	}
+</style>
+<body>
+
+	<p id="demo"></p>
+	<div id="mapholder"></div>
+	<button onclick="getLocation()">Show Coordinates </button>
+<!-- html geolocation api is used to get the geographical postion of the user.
+
+getCurrentPosition()=> is used to return th users position.
+ -->
+<script>
+	//watchPositon() = returns the current live position. 
+ 	//clearWatch() = stops the watchPosition() method.
+ 	
+	var x = document.getElementById("demo");
+
+	function getLocation(){
+		if(navigator.geolocation){
+			navigator.geolocation.watchPosition(showPosition, showError);
+		}else{
+			x.innerHTML = "geolocation is not support"
+		}
+	}
+
+
+
+ 	function showPosition(position){
+ 		x.innerHTML = "latitude: " + position.coords.latitude + "<br> Longitude: " + position.coords.longitude;
+ 	}
+
+ 	function showError(error){
+ 		switch(error.code){
+ 			case error.PERMISSION_DENIED:
+ 			x.innerHTML = "user denied reuqest"
+ 			break;
+ 			case error.POSITION_UNAVAILABLE:
+ 			x.innerHTML = "location information is unavailable"
+ 			break;
+ 			case error.TIMEOUT:
+ 			x.innerHTML = "the reuqest to get user location timed out"
+ 			break;
+ 			case error.UNKNOWN_ERROR:
+ 			x.innerHTML = "an unknown error occured"
+ 			break;
+ 	}
+ }
+	</script>
+</body>
+</html>
