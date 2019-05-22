@@ -25,13 +25,14 @@
          					printf("<option value='".$row->city_id . "'>" . $row->city_name . "</option>");
                         }
                     ?>
-                    
+
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="title">Select City:</label>
                 <select name="city" class="form-control" style="width:350px">
+                	<option value="">--Select City First--</option>
                 </select>
             </div>
 
@@ -39,8 +40,49 @@
     </div>
 </div>
 
+<div class="container">
+
+	<div class="row">
+		<div class="col-md-12">
+
+			<div class="content-show" id="local-content">
+
+
+
+			</div>
+
+		</div>
+	</div>
+
+	</div>
+
 
 <script>
+	$("select[name='city']").change(function(){
+
+		var localId = $(this).val();
+		// alert(localId); // 1
+		if(localId){
+			$.ajax({
+				url: "localSearch.php",
+				type:"POST",
+				data: {'id':localId},
+				success: function(data){
+					// alert(data);
+					if(data!=""){
+                	$('#local-content').html(data);
+                }else{
+                	$('#local-content').html("No");
+                }
+				}
+			});
+		}else{
+     		
+		}
+	});
+
+
+
 $( "select[name='state']" ).change(function () {
     var cityId = $(this).val();
 
@@ -64,5 +106,6 @@ $( "select[name='state']" ).change(function () {
 });
 </script>
 
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
 </body>
 </html>
