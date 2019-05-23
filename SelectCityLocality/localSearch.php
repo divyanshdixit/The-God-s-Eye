@@ -1,21 +1,14 @@
 <?php
 session_start();
+$_SESSION['username'] = "Divyansh";
  require('db.php');
 
 $localityId = $_POST['id'];
 
 
-$sql = " SELECT * FROM btm_user_table LEFT JOIN locality ON btm_user_table.locality_id = locality.locality_id WHERE locality_id = '$localityId' "; 
-if($sql){
-echo "ok";
-}else{
-	echo "nopt ok";
-}
+$sql = " SELECT users.user_name,user_details,user_id from user_table as users left join locality as loc on users.locality_id=loc.locality_id where loc.locality_id=$localityId"; 
 
 $result = mysqli_query($conn, $sql);
-
-echo $result;
-
 
 
 	echo '<div class="container">
@@ -33,18 +26,22 @@ echo $result;
 					<div class="row">';
 						while($row = mysqli_fetch_assoc($result)){
 						if(!empty($row)){
-
+					
 								echo  '<div class="col-md-4 col-sm-4 col-xs-12">
-											<div class="box-shad"> 
-												<h2>' . $row['user_name']  . '</h2>
+											<div class="box-shad" data-toggle="modal" data-target="#exampleModal"> 
+												<h2>' .$row['user_name']  . '</h2>
 												<p> ' . $row['user_details'] . '</p>
+
 											 </div>
-										</div>';
+										</div>
+										<div class="load-more" lastID="' . $row['user_id'] . '" style="display: none;">
+									        <img src="loading.gif"/>
+									    </div>';
 							}else{
 								echo "No results";
 							}
 						}
-							echo '	</div>
+							echo '  </div>
 						</div>
 				</div>';
 
