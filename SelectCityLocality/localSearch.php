@@ -9,7 +9,7 @@ $localityId = $_POST['id'];
 $sql = " SELECT users.user_name,user_details,user_id from user_table as users left join locality as loc on users.locality_id=loc.locality_id where loc.locality_id=$localityId"; 
 
 $result = mysqli_query($conn, $sql);
-
+$i=0;
 
 	echo '<div class="container">
 			<div class="row">
@@ -31,7 +31,9 @@ $result = mysqli_query($conn, $sql);
 											<div class="box-shad" data-toggle="modal" data-target="#exampleModal"> 
 												<h2>' .$row['user_name']  . '</h2>
 												<p> ' . $row['user_details'] . '</p>
-
+												<form action="" method="post">
+												<button type="submit" name="cook"'.$i.' value="cook"'.$i.'>Hire Now </button>
+												</form>
 											 </div>
 										</div>
 										<div class="load-more" lastID="' . $row['user_id'] . '" style="display: none;">
@@ -40,6 +42,7 @@ $result = mysqli_query($conn, $sql);
 							}else{
 								echo "No results";
 							}
+							$i++;
 						}
 							echo '  </div>
 						</div>
