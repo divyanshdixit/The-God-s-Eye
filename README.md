@@ -1,1 +1,1 @@
-# franchisebazar
+PHP, JS, CSS, HTML, Jquery
